@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .border {
+            margin-left: 10%;
+            margin-top: 10%;
+            text-align: center;
+            font-family:monospace;
+            font-size: 45px;
+            color: dodgerblue;
+        }
+
+        .button1 {
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            font-family:monospace;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            margin-left: 3px;
+            background-color: aqua;
+            color: black;
+            border: 5px solid white;
+
+        }
+
+        .button1:hover {
+            background-color: dodgerblue;
+            color: black;
+        }
+
+        #num3 {
+            margin-left: 45px;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .text {
+            background-color: aqua;
+            color: green;
+            font-size: 20px;
+            margin-left: 3px;
+
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="border">
+        <form id="calc" method="post">
+            Insert Number A <input class="text" id="num1" type="text" name="number" onkeypress="validate(event)" /><br> Insert Number B <input class="text" id="num2" type="text" name="number" onkeypress="validate(event)" /><br> Result Number <input class="text" id="num3" type="text" name="number" onkeypress="validateRes(event)" /><br>
+            <input class="button1" id="add" type="button" onclick="return doAdd()" value="A + B">
+            <input class="button1" id="minusAB" type="button" onclick="return doAB()" value="A - B">
+            <input class="button1" id="minusBA" type="button" onclick="return doBA()" value="B - A"><br>
+            <input class="button1" id="AxB" type="button" onclick="return doAxB()" value="A * B">
+            <input class="button1" id="divideAB" type="button" onclick="return divAB()" value="A / B">
+            <input class="button1" id="divideBA" type="button" onclick="return divBA()" value="B / A">
+            <input class="button1" id="clear" type="button" onclick="return doClear()" value="CLEAR">
+        </form>
+    </div>
+
+
+    <script>
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+
+        function validateRes(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+
+        let add = document.querySelector("#add");
+        let minusAB = document.querySelector("#minusAB");
+        let minusBA = document.querySelector("#minusBA");
+        let AxB = document.querySelector("#AxB");
+        let divideAB = document.querySelector("#divideAB");
+        let divideBA = document.querySelector("#divideBA");
+        let clear = document.querySelector("#clear");
+
+        add.addEventListener("click", doAdd)
+        minusAB.addEventListener("click", doAB)
+        minusBA.addEventListener("click", doBA)
+        AxB.addEventListener("click", doAxB)
+        divideAB.addEventListener("click", divAB)
+        divideBA.addEventListener("click", divBA)
+        clear.addEventListener("click", doClear)
+
+        function doAdd() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(a, 10) + parseInt(b, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function doAB() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(a, 10) - parseInt(b, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function doBA() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(b, 10) - parseInt(a, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function doAxB() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(b, 10) * parseInt(a, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function divAB() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(a, 10) / parseInt(b, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function divBA() {
+            var a = document.forms["calc"]["num1"].value;
+            var b = document.forms["calc"]["num2"].value;
+            var display = document.getElementById("res")
+            var c = parseInt(b, 10) / parseInt(a, 10);
+            if (document.forms["calc"]["num1"].value == "" || document.forms["calc"]["num2"].value == "")
+                display.innerHTML = "Insert numbers";
+            else document.forms["calc"]["num3"].value = c;
+
+            return false;
+        }
+
+        function doClear() {
+            document.forms["calc"]["num1"].value = "";
+            document.forms["calc"]["num2"].value = "";
+            document.forms["calc"]["num3"].value = "";
+        }
+
+    </script>
+</body>
+
+</html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
